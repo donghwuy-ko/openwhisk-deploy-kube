@@ -41,35 +41,47 @@ spec:
       paths:
       - path: /api/v1/web
         backend:
-          serviceName: {{ .Release.Name }}-controller
-          servicePort: http
+          service:
+            name: {{ .Release.Name }}-controller
+            port:
+              name: http
         pathType: Prefix
       - path: /api/v1
         backend:
-          serviceName: {{ .Release.Name }}-controller
-          servicePort: http
+          service:
+            name: {{ .Release.Name }}-controller
+            port:
+              name: http
         pathType: Prefix
       # API GW generated API invocation
       - path: /api
         backend:
-          serviceName: {{ .Release.Name }}-apigateway
-          servicePort: mgmt
+          service:
+            name: {{ .Release.Name }}-apigateway
+            port: 
+              name: mgmt
         pathType: Prefix
       # API GW health status
       - path: /v1/health-check
         backend:
-          serviceName: {{ .Release.Name }}-apigateway
-          servicePort: api
+          service:
+            name: {{ .Release.Name }}-apigateway
+            port:
+              name: api
         pathType: Prefix
       # API management REST APIs
       - path: /v2
         backend:
-          serviceName: {{ .Release.Name }}-apigateway
-          servicePort: api
+          service:
+            name: {{ .Release.Name }}-apigateway
+            port:
+              name: api
         pathType: Prefix
       - path: /
         backend:
-          serviceName: {{ .Release.Name }}-nginx
-          servicePort: http
+          service:
+            name: {{ .Release.Name }}-nginx
+            port:
+              name: http
         pathType: Prefix
 {{- end }}
