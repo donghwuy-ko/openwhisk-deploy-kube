@@ -16,7 +16,7 @@
 #
 
 {{- if eq .Values.whisk.ingress.type "Standard" }}
-apiVersion: extensions/v1alpha1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Release.Name }}-ingress
@@ -43,27 +43,33 @@ spec:
         backend:
           serviceName: {{ .Release.Name }}-controller
           servicePort: http
+        pathType: Prefix
       - path: /api/v1
         backend:
           serviceName: {{ .Release.Name }}-controller
           servicePort: http
+        pathType: Prefix
       # API GW generated API invocation
       - path: /api
         backend:
           serviceName: {{ .Release.Name }}-apigateway
           servicePort: mgmt
+        pathType: Prefix
       # API GW health status
       - path: /v1/health-check
         backend:
           serviceName: {{ .Release.Name }}-apigateway
           servicePort: api
+        pathType: Prefix
       # API management REST APIs
       - path: /v2
         backend:
           serviceName: {{ .Release.Name }}-apigateway
           servicePort: api
+        pathType: Prefix
       - path: /
         backend:
           serviceName: {{ .Release.Name }}-nginx
           servicePort: http
+        pathType: Prefix
 {{- end }}
