@@ -46,14 +46,14 @@ spec:
             name: {{ .Release.Name }}-controller
             port:
               name: http
-        pathType: Prefix
+        pathType: ImplementationSpecific
       - path: /api/v1
         backend:
           service:
             name: {{ .Release.Name }}-controller
             port:
               name: http
-        pathType: Prefix
+        pathType: ImplementationSpecific
       # API GW generated API invocation
       - path: /api
         backend:
@@ -61,7 +61,7 @@ spec:
             name: {{ .Release.Name }}-apigateway
             port: 
               name: mgmt
-        pathType: Prefix
+        pathType: ImplementationSpecific
       # API GW health status
       - path: /v1/health-check
         backend:
@@ -69,7 +69,7 @@ spec:
             name: {{ .Release.Name }}-apigateway
             port:
               name: api
-        pathType: Prefix
+        pathType: ImplementationSpecific
       # API management REST APIs
       - path: /v2
         backend:
@@ -77,12 +77,12 @@ spec:
             name: {{ .Release.Name }}-apigateway
             port:
               name: api
-        pathType: Prefix
+        pathType: ImplementationSpecific
       - path: /
         backend:
           service:
             name: {{ .Release.Name }}-nginx
             port:
               name: http
-        pathType: Prefix
+        pathType: ImplementationSpecific
 {{- end }}
