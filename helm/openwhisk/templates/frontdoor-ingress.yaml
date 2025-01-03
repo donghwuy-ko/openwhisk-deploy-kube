@@ -27,6 +27,7 @@ metadata:
       {{ $key }}: {{ $value | quote }}
     {{- end }}
 spec:
+  ingressClassName: {{ .Values.whisk.ingress.ingressClass }}
   {{- if .Values.whisk.ingress.tls.enabled }}
   tls:
   - hosts:
